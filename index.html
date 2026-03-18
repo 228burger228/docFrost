@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>docFrost — Ремонт техники · Запчасти СНГ</title>
+<meta name="description" content="Профессиональный ремонт холодильников и стиральных машин в Москве. Доставка запчастей по СНГ. Борис — сертифицированный мастер с многолетним опытом.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e1117;
+  --bg2: #13161f;
+  --bg3: #181c27;
+  --card: #1a1e2e;
+  --card2: #1f2333;
+  --blue: #4a9eff;
+  --blue2: #2b7be0;
+  --blue-glow: rgba(74,158,255,0.15);
+  --teal: #22d3a0;
+  --teal-dim: rgba(34,211,160,0.12);
+  --text: #f0f2f8;
+  --text2: #8b92a8;
+  --text3: #545b72;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Onest', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ── HEADER ── */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(14,17,23,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-icon svg { width: 18px; height: 18px; }
+.logo-text {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.logo-text span { color: var(--blue); }
+
+nav { display: flex; gap: 4px; }
+nav a {
+  font-size: 13px;
+  color: var(--text2);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: color 0.2s, background 0.2s;
+}
+nav a:hover { color: var(--text); background: var(--card); }
+
+.header-cta {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-family: 'Onest', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.header-cta:hover { background: var(--blue2); transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 64px 5% 0;
+  overflow: hidden;
+}
+
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(74,158,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,158,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.hero-orb-1 {
+  width: 600px; height: 600px;
+  background: rgba(74,158,255,0.08);
+  top: -100px; right: -100px;
+}
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  background: rgba(34,211,160,0.06);
+  bottom: 0; left: 10%;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 80px 0;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(74,158,255,0.1);
+  border: 1px solid rgba(74,158,255,0.2);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--blue);
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero-title .accent { color: var(--blue); }
+.hero-title .accent2 { color: var(--teal); }
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 480px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-family: 'Onest', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.btn-primary:hover {
+  background: var(--blue2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74,158,255,0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-family: 'Onest', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+.btn-secondary:hover {
+  border-color: rgba(255,255,255,0.25);
+  background: var(--card);
+  transform: translateY(-2px);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.hero-stat-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+.hero-stat-num span { color: var(--blue); }
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+/* HERO RIGHT — Visual */
+.hero-visual {
+  animation: fadeLeft 0.8s 0.2s ease both;
+  position: relative;
+}
+
+.hero-card-main {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-card-main::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+}
+
+.master-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.master-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e3a5f, #2b5ba8);
+  border: 2px solid rgba(74,158,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+.master-name {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+.master-title {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 2px;
+}
+.master-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(34,211,160,0.1);
+  border: 1px solid rgba(34,211,160,0.2);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: var(--teal);
+  margin-top: 6px;
+}
+
+.service-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.service-pill {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.service-pill .dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+.hero-card-float {
+  position: absolute;
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+.hero-card-float-1 {
+  top: -20px; right: -16px;
+  animation: float 4s ease-in-out infinite;
+}
+.hero-card-float-2 {
+  bottom: -20px; left: -16px;
+  animation: float 4s 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-label { font-size: 11px; color: var(--text3); }
+.float-value { font-size: 13px; font-weight: 500; color: var(--text); margin-top: 1px; }
+
+/* ── SECTION COMMON ── */
+section { position: relative; z-index: 1; }
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 5%;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+.section-tag::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--blue);
+}
+
+.section-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: var(--text2);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+/* ── SERVICES ── */
+#services { background: var(--bg2); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.service-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 60% 0%, rgba(74,158,255,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.service-card:hover {
+  border-color: rgba(74,158,255,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.service-card-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: rgba(74,158,255,0.1);
+  border: 1px solid rgba(74,158,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.service-card-icon svg { width: 22px; height: 22px; stroke: var(--blue); }
+
+.service-card-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.service-card-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+.service-card-price {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--teal);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.service-card-price::before {
+  content: '';
+  width: 8px; height: 1px;
+  background: var(--teal);
+}
+
+/* ── DELIVERY ── */
+#delivery { background: var(--bg); }
+
+.delivery-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.delivery-countries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.country-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--text2);
+  transition: border-color 0.2s, color 0.2s;
+}
+.country-tag:hover {
+  border-color: rgba(34,211,160,0.3);
+  color: var(--teal);
+}
+.country-flag { font-size: 18px; }
+
+.delivery-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.delivery-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding-bottom: 24px;
+  position: relative;
+}
+.delivery-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 32px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--card2);
+  border: 1px solid rgba(74,158,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.step-content-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.step-content-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+/* Delivery form */
+.delivery-form-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  position: sticky;
+  top: 80px;
+}
+.delivery-form-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.form-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.form-subtitle { font-size: 12px; color: var(--text2); margin-bottom: 24px; }
+
+.form-group { margin-bottom: 14px; }
+.form-label {
+  display: block;
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: 'Onest', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(74,158,255,0.5);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--text3); }
+.form-select { cursor: pointer; }
+.form-select option { background: var(--bg3); }
+.form-textarea { resize: vertical; min-height: 80px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.form-hint { font-size: 11px; color: var(--text3); margin-top: 12px; }
+.form-hint a { color: var(--blue); text-decoration: none; }
+
+.btn-form {
+  width: 100%;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: 'Onest', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.btn-form:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ── WHY US ── */
+#why { background: var(--bg2); }
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.why-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.why-num {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+.why-label { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+.cert-block {
+  margin-top: 40px;
+  background: var(--card);
+  border: 1px solid rgba(34,211,160,0.2);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.cert-icon {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  background: var(--teal-dim);
+  border: 1px solid rgba(34,211,160,0.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cert-icon svg { width: 26px; height: 26px; stroke: var(--teal); }
+.cert-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.cert-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+/* ── HOW IT WORKS ── */
+#how { background: var(--bg); }
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.how-steps::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: calc(16.67% + 20px);
+  right: calc(16.67% + 20px);
+  height: 1px;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+  opacity: 0.3;
+}
+
+.how-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  transition: border-color 0.2s;
+}
+.how-step:hover { border-color: rgba(74,158,255,0.3); }
+
+.how-step-num {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(74,158,255,0.08);
+  border: 1px solid rgba(74,158,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--blue);
+  margin: 0 auto 16px;
+}
+.how-step-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.how-step-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ── REVIEWS ── */
+#reviews { background: var(--bg2); }
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.review-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.review-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 12px;
+}
+.star { color: #f5a623; font-size: 14px; }
+.review-text {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.review-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+}
+.review-name { font-size: 13px; font-weight: 500; }
+.review-meta { font-size: 11px; color: var(--text3); }
+
+/* ── CONTACT ── */
+#contact { background: var(--bg); }
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.contact-card:hover {
+  border-color: var(--border2);
+  transform: translateX(4px);
+}
+.contact-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cc-phone { background: rgba(74,158,255,0.1); }
+.cc-tg { background: rgba(74,158,255,0.1); }
+.cc-max { background: rgba(34,211,160,0.1); }
+.cc-vk { background: rgba(74,107,255,0.1); }
+
+.contact-card-icon svg { width: 22px; height: 22px; }
+.contact-card-label { font-size: 11px; color: var(--text3); margin-bottom: 2px; }
+.contact-card-value { font-size: 14px; font-weight: 500; color: var(--text); }
+
+.contact-form-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.contact-form-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 32px 5%;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-copy { font-size: 12px; color: var(--text3); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a {
+  font-size: 12px;
+  color: var(--text3);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text2); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SUCCESS MESSAGE ── */
+.form-success {
+  display: none;
+  background: rgba(34,211,160,0.08);
+  border: 1px solid rgba(34,211,160,0.25);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--teal);
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* ── MOBILE ── */
+.burger { display: none; cursor: pointer; background: none; border: none; padding: 8px; }
+.burger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--text2);
+  border-radius: 2px;
+  margin: 4px 0;
+  transition: 0.3s;
+}
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .delivery-layout { grid-template-columns: 1fr; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .how-steps { grid-template-columns: 1fr; }
+  .how-steps::before { display: none; }
+  nav { display: none; }
+  .burger { display: block; }
+}
+
+@media (max-width: 600px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-stats { gap: 20px; }
+  .cert-block { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L12 6M12 18L12 22M6 12L2 12M22 12L18 12"/>
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M7.05 7.05L4.22 4.22M16.95 16.95L19.78 19.78M7.05 16.95L4.22 19.78M16.95 7.05L19.78 4.22"/>
+      </svg>
+    </div>
+    <span class="logo-text">doc<span>Frost</span></span>
+  </a>
+  <nav>
+    <a href="#services">Услуги</a>
+    <a href="#delivery">Запчасти</a>
+    <a href="#why">О мастере</a>
+    <a href="#contact">Контакты</a>
+  </nav>
+  <a href="#contact" class="header-cta">Оставить заявку</a>
+  <button class="burger" id="burgerBtn" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Принимаем заявки · Москва и СНГ
+      </div>
+      <h1 class="hero-title">
+        Ремонт техники<br>и запчасти<br><span class="accent2">с доставкой</span>
+      </h1>
+      <p class="hero-desc">
+        Профессиональный ремонт холодильников, промышленного холодильного оборудования и стиральных машин в Москве. Оригинальные запчасти с доставкой по всему СНГ.
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.59A2 2 0 012 .22h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          Вызвать мастера
+        </a>
+        <a href="#delivery" class="btn-secondary">
+          Заказать деталь →
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">15<span>+</span></div>
+          <div class="hero-stat-label">лет опыта</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">500<span>+</span></div>
+          <div class="hero-stat-label">ремонтов</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">СНГ</div>
+          <div class="hero-stat-label">доставка</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div style="position:relative; padding: 20px 16px 20px 0;">
+        <div class="hero-card-float hero-card-float-1">
+          <div class="float-label">Статус</div>
+          <div class="float-value" style="color:var(--teal)">● Принимаю заявки</div>
+        </div>
+        <div class="hero-card-main">
+          <div class="master-row">
+            <div class="master-avatar">BF</div>
+            <div>
+              <div class="master-name">Борис</div>
+              <div class="master-title">Сервисный инженер · Профи-мастер</div>
+              <div class="master-verified">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Сертифицированный специалист
+              </div>
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--text3); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.08em;">Работает с техникой</div>
+          <div class="service-pills">
+            <span class="service-pill"><span class="dot"></span>Холодильники</span>
+            <span class="service-pill"><span class="dot"></span>Промышленное охлаждение</span>
+            <span class="service-pill"><span class="dot"></span>Стиральные машины</span>
+            <span class="service-pill"><span class="dot"></span>Запчасти под заказ</span>
+          </div>
+          <div style="margin-top:18px; padding-top:16px; border-top:1px solid var(--border); display:flex; gap:16px;">
+            <div>
+              <div style="font-size:11px; color:var(--text3)">Телефон</div>
+              <div style="font-size:13px; font-weight:500; color:var(--blue)">+7 926 262 6947</div>
+            </div>
+            <div>
+              <div style="font-size:11px; color:var(--text3)">Telegram</div>
+              <div style="font-size:13px; font-weight:500; color:var(--blue)">@docFrost</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-card-float hero-card-float-2">
+          <div class="float-label">Диагностика</div>
+          <div class="float-value">от 1 000 ₽</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-tag reveal">Ремонт · Москва</div>
+    <h2 class="section-title reveal">Услуги ремонта</h2>
+    <p class="section-desc reveal">Работаю с любыми моделями и брендами. Выезд в день заявки, диагностика на месте.</p>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="2" width="16" height="20" rx="2"/>
+            <line x1="4" y1="10" x2="20" y2="10"/>
+            <circle cx="8" cy="6" r="1" fill="currentColor"/>
+            <circle cx="8" cy="15" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="service-card-title">Бытовые холодильники</div>
+        <div class="service-card-desc">Ремонт всех типов: однокамерные, двухкамерные, Side-by-Side. Samsung, LG, Bosch, Atlant, Indesit и любые другие марки.</div>
+        <div class="service-card-price">от 1 000 ₽ · диагностика</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="18" rx="2"/>
+            <line x1="2" y1="9" x2="22" y2="9"/>
+            <rect x="5" y="12" width="4" height="5" rx="1"/>
+            <line x1="13" y1="13" x2="19" y2="13"/>
+            <line x1="13" y1="16" x2="17" y2="16"/>
+          </svg>
+        </div>
+        <div class="service-card-title">Промышленное холодильное оборудование</div>
+        <div class="service-card-desc">Витрины, морозильные лари, камеры хранения, холодильные шкафы для общепита, торговли и производства.</div>
+        <div class="service-card-price">от 2 000 ₽ · диагностика</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="service-card-title">Стиральные машины</div>
+        <div class="service-card-desc">Не сливает, не греет, сильный шум, протечки — починим быстро. Фронтальная и вертикальная загрузка.</div>
+        <div class="service-card-price">от 1 000 ₽ · диагностика</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <div class="service-card-title">Срочный выезд</div>
+        <div class="service-card-desc">Выезд и диагностика в день обращения. Работаю по всей Москве и ближайшему Подмосковью.</div>
+        <div class="service-card-price">В день звонка</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <div class="service-card-title">Помощь с выбором техники</div>
+        <div class="service-card-desc">Если ремонт нецелесообразен — помогу подобрать новую технику с учётом ваших условий и бюджета.</div>
+        <div class="service-card-price">Бесплатная консультация</div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <div class="service-card-title">Замена комплектующих</div>
+        <div class="service-card-desc">Компрессоры, термостаты, платы управления, двигатели, ТЭНы. Использую оригинальные и качественные аналоги.</div>
+        <div class="service-card-price">По факту диагностики</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="section-inner">
+    <div class="section-tag reveal">Запчасти · СНГ</div>
+    <h2 class="section-title reveal">Доставка запчастей</h2>
+    <p class="section-desc reveal">Подберу и отправлю нужную деталь в любую точку СНГ. Оригинальные запчасти для холодильников и стиральных машин под заказ.</p>
+
+    <div class="delivery-layout">
+      <div>
+        <div style="margin-bottom:24px; font-size:14px; font-weight:500; color:var(--text2)">Работаем с:</div>
+        <div class="delivery-countries reveal">
+          <div class="country-tag"><span class="country-flag">🇷🇺</span> Россия</div>
+          <div class="country-tag"><span class="country-flag">🇧🇾</span> Беларусь</div>
+          <div class="country-tag"><span class="country-flag">🇰🇿</span> Казахстан</div>
+          <div class="country-tag"><span class="country-flag">🇺🇿</span> Узбекистан</div>
+          <div class="country-tag"><span class="country-flag">🇦🇲</span> Армения</div>
+          <div class="country-tag"><span class="country-flag">🇦🇿</span> Азербайджан</div>
+          <div class="country-tag"><span class="country-flag">🇰🇬</span> Кыргызстан</div>
+          <div class="country-tag"><span class="country-flag">🇲🇩</span> Молдова</div>
+        </div>
+
+        <div class="delivery-steps reveal">
+          <div class="delivery-step">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-content-title">Опишите что нужно</div>
+              <div class="step-content-desc">Укажите марку, модель техники и неисправность. Если знаете артикул детали — ещё лучше.</div>
+            </div>
+          </div>
+          <div class="delivery-step">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-content-title">Подберу деталь</div>
+              <div class="step-content-desc">Проверю наличие, уточню совместимость и назову итоговую стоимость с доставкой.</div>
+            </div>
+          </div>
+          <div class="delivery-step">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-content-title">Отправка и трекинг</div>
+              <div class="step-content-desc">Отправлю транспортной компанией с номером отслеживания. Упаковка надёжная.</div>
+            </div>
+          </div>
+          <div class="delivery-step">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-content-title">Поддержка после получения</div>
+              <div class="step-content-desc">Если нужна консультация по установке — объясню или подскажу специалиста рядом с вами.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELIVERY FORM -->
+      <div class="reveal">
+        <div class="delivery-form-panel">
+          <div class="form-title">Заявка на запчасть</div>
+          <div class="form-subtitle">Заполните форму — свяжусь в течение часа</div>
+
+          <form id="deliveryForm" action="https://formspree.io/f/xjgajpep" method="POST">
+            <input type="hidden" name="form_type" value="delivery">
+
+            <div class="form-group">
+              <label class="form-label">Ваше имя *</label>
+              <input type="text" name="name" class="form-input" placeholder="Как к вам обращаться?" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Телефон *</label>
+                <input type="tel" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Страна</label>
+                <select name="country" class="form-select">
+                  <option value="">Выберите...</option>
+                  <option>Россия</option>
+                  <option>Беларусь</option>
+                  <option>Казахстан</option>
+                  <option>Узбекистан</option>
+                  <option>Армения</option>
+                  <option>Азербайджан</option>
+                  <option>Кыргызстан</option>
+                  <option>Молдова</option>
+                  <option>Другая</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Марка и модель техники *</label>
+              <input type="text" name="appliance" class="form-input" placeholder="Например: Samsung RB37J5000SA" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Тип оборудования</label>
+              <select name="type" class="form-select">
+                <option value="">Выберите тип...</option>
+                <option>Бытовой холодильник</option>
+                <option>Промышленный холодильник</option>
+                <option>Стиральная машина</option>
+                <option>Другое</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Нужная деталь / описание проблемы *</label>
+              <textarea name="description" class="form-textarea" placeholder="Опишите что сломалось или укажите артикул детали..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Город доставки</label>
+              <input type="text" name="city" class="form-input" placeholder="Ваш город">
+            </div>
+
+            <button type="submit" class="btn-form">Отправить заявку →</button>
+            <p class="form-hint">Нажимая кнопку, вы соглашаетесь на обработку персональных данных. Или пишите напрямую: <a href="https://t.me/docFrost">@docFrost</a></p>
+          </form>
+
+          <div class="form-success" id="deliverySuccess">
+            ✓ Заявка отправлена! Свяжусь с вами в течение часа.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-inner">
+    <div class="section-tag reveal">О мастере</div>
+    <h2 class="section-title reveal">Почему доверяют docFrost</h2>
+    <p class="section-desc reveal">Один из лучших признанных мастеров Москвы по ремонту холодильного и бытового оборудования.</p>
+
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="why-num">15+</div>
+        <div class="why-label">лет практики<br>в ремонте техники</div>
+      </div>
+      <div class="why-card">
+        <div class="why-num">500+</div>
+        <div class="why-label">успешных<br>ремонтов</div>
+      </div>
+      <div class="why-card">
+        <div class="why-num">1 день</div>
+        <div class="why-label">выезд и диагностика<br>в день обращения</div>
+      </div>
+      <div class="why-card">
+        <div class="why-num">СНГ</div>
+        <div class="why-label">поставки запчастей<br>по всему СНГ</div>
+      </div>
+    </div>
+
+    <div class="cert-block reveal">
+      <div class="cert-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="6"/>
+          <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cert-title">Сертифицированный специалист</div>
+        <div class="cert-desc">
+          Официальная квалификация и повышение профессионального уровня от завода-производителя холодильного оборудования (Минск). Знаю конструкцию изнутри — от производственной линии до вашей кухни.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-tag reveal">Процесс</div>
+    <h2 class="section-title reveal">Как проходит ремонт</h2>
+    <p class="section-desc reveal">Просто и прозрачно — от звонка до работающей техники.</p>
+
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="how-step-num">01</div>
+        <div class="how-step-title">Оставьте заявку</div>
+        <div class="how-step-desc">Позвоните, напишите в Telegram или заполните форму. Обсудим проблему и договоримся о времени выезда.</div>
+      </div>
+      <div class="how-step reveal">
+        <div class="how-step-num">02</div>
+        <div class="how-step-title">Диагностика на месте</div>
+        <div class="how-step-desc">Приеду, осмотрю технику, поставлю диагноз. Назову точную стоимость ремонта — без скрытых доплат.</div>
+      </div>
+      <div class="how-step reveal">
+        <div class="how-step-num">03</div>
+        <div class="how-step-title">Ремонт и проверка</div>
+        <div class="how-step-desc">Устраню неисправность, проверю работу. Объясню что было сломано и дам рекомендации по эксплуатации.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-tag reveal">Отзывы</div>
+    <h2 class="section-title reveal">Говорят клиенты</h2>
+    <div class="reviews-grid">
+
+      <div class="review-card reveal">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">«Борис приехал в тот же день. Холодильник LG перестал морозить — оказался компрессор. Починил быстро, цена адекватная. Работает уже полгода без нареканий.»</p>
+        <div class="review-author">
+          <div class="review-avatar">АК</div>
+          <div>
+            <div class="review-name">Александр К.</div>
+            <div class="review-meta">Москва · холодильник LG</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">«Заказывала запчасть в Казахстан — пришла быстро, упакована отлично. Борис помог разобраться с совместимостью по телефону, даже подсказал как установить.»</p>
+        <div class="review-author">
+          <div class="review-avatar">МС</div>
+          <div>
+            <div class="review-name">Мария С.</div>
+            <div class="review-meta">Алматы · термостат для Atlant</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">«Промышленная витрина в кафе встала посреди дня. Борис приехал оперативно, разобрался с мотором. Очень профессиональный подход, знает оборудование досконально.»</p>
+        <div class="review-author">
+          <div class="review-avatar">ДН</div>
+          <div>
+            <div class="review-name">Дмитрий Н.</div>
+            <div class="review-meta">Москва · промышленная витрина</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-tag reveal">Контакты</div>
+    <h2 class="section-title reveal">Написать или позвонить</h2>
+
+    <div class="contact-layout">
+      <div class="reveal">
+        <p style="font-size:15px; color:var(--text2); line-height:1.7; margin-bottom:28px;">
+          Работаю в Москве и Подмосковье. Для заказа запчастей — по всему СНГ. Быстро отвечаю в Telegram.
+        </p>
+        <div class="contact-cards">
+          <a href="tel:+79262626947" class="contact-card">
+            <div class="contact-card-icon cc-phone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.59A2 2 0 012 .22h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-card-label">Телефон</div>
+              <div class="contact-card-value">+7 926 262 6947</div>
+            </div>
+          </a>
+
+          <a href="https://t.me/docFrost" target="_blank" class="contact-card">
+            <div class="contact-card-icon cc-tg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-card-label">Telegram</div>
+              <div class="contact-card-value">@docFrost</div>
+            </div>
+          </a>
+
+          <a href="https://wa.me/79262626947" target="_blank" class="contact-card">
+            <div class="contact-card-icon cc-max">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-card-label">WhatsApp / Макс</div>
+              <div class="contact-card-value">+7 926 262 6947</div>
+            </div>
+          </a>
+
+          <a href="https://vk.com/" target="_blank" class="contact-card">
+            <div class="contact-card-icon cc-vk">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#748cff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5 3h4.5l3 6-3 3s2 4 8 4v0h4.5v-3s-2.5 0-4-1.5L17 9h4.5s-1 7-9 9c-7 1.5-11-5-11-5s-1-3 1-4.5L5 6.5 2.5 3z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="contact-card-label">ВКонтакте</div>
+              <div class="contact-card-value">Страница ВКонтакте</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- CONTACT FORM -->
+      <div class="reveal">
+        <div class="contact-form-panel">
+          <div class="form-title">Заявка на ремонт</div>
+          <div class="form-subtitle">Опишите проблему — перезвоню и договоримся</div>
+
+          <form id="contactForm" action=https://formspree.io/f/xjgajpep" method="POST">
+            <input type="hidden" name="form_type" value="repair">
+
+            <div class="form-group">
+              <label class="form-label">Имя *</label>
+              <input type="text" name="name" class="form-input" placeholder="Ваше имя" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Телефон *</label>
+              <input type="tel" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Что сломалось?</label>
+              <select name="type" class="form-select">
+                <option value="">Выберите тип техники</option>
+                <option>Бытовой холодильник</option>
+                <option>Промышленный холодильник</option>
+                <option>Стиральная машина</option>
+                <option>Другое</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Описание проблемы</label>
+              <textarea name="description" class="form-textarea" placeholder="Опишите симптомы: не морозит, течёт, шумит..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-form">Отправить заявку →</button>
+            <p class="form-hint">Или звоните: <a href="tel:+79262626947">+7 926 262 6947</a></p>
+          </form>
+
+          <div class="form-success" id="contactSuccess">
+            ✓ Заявка принята! Перезвоню в ближайшее время.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon" style="width:28px;height:28px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L12 6M12 18L12 22M6 12L2 12M22 12L18 12"/>
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M7.05 7.05L4.22 4.22M16.95 16.95L19.78 19.78M7.05 16.95L4.22 19.78M16.95 7.05L19.78 4.22"/>
+        </svg>
+      </div>
+      <span class="logo-text" style="font-size:13px;">doc<span>Frost</span></span>
+    </a>
+    <div class="footer-copy">© 2025 docFrost · Борис · Ремонт техники Москва</div>
+    <div class="footer-links">
+      <a href="#services">Услуги</a>
+      <a href="#delivery">Запчасти</a>
+      <a href="https://t.me/docFrost" target="_blank">Telegram</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form handling
+function handleForm(formId, successId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('.btn-form');
+    btn.textContent = 'Отправляем...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById(successId).style.display = 'block';
+      } else {
+        btn.textContent = 'Ошибка, попробуйте снова';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Ошибка, попробуйте снова';
+      btn.disabled = false;
+    }
+  });
+}
+handleForm('deliveryForm', 'deliverySuccess');
+handleForm('contactForm', 'contactSuccess');
+
+// Mobile burger (simple toggle)
+document.getElementById('burgerBtn').addEventListener('click', () => {
+  const nav = document.querySelector('nav');
+  if (nav.style.display === 'flex') {
+    nav.style.display = 'none';
+  } else {
+    nav.style.cssText = 'display:flex; flex-direction:column; position:fixed; top:64px; left:0; right:0; background:rgba(14,17,23,0.98); backdrop-filter:blur(16px); padding:20px 5%; border-bottom:1px solid rgba(255,255,255,0.07); z-index:99;';
+  }
+});
+
+// Header scroll effect
+window.addEventListener('scroll', () => {
+  document.querySelector('header').style.boxShadow = window.scrollY > 20 ? '0 4px 24px rgba(0,0,0,0.3)' : 'none';
+});
+</script>
+</body>
+</html>
